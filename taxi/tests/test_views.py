@@ -46,7 +46,6 @@ class PrivateManufacturerTest(TestCase):
     def test_search_manufacturer_filters_queryset(self):
         Manufacturer.objects.create(name="BMW", country="Germany")
         Manufacturer.objects.create(name="Audi", country="Germany")
-        self.client.force_login(self.user)
         response = self.client.get(Manufacturer_Format_URL, {"name": "bm"})
         self.assertContains(response, "BMW")
         self.assertNotContains(response, "Audi")
@@ -100,7 +99,6 @@ class PrivateCarTest(TestCase):
                                                    country="Japan")
         Car.objects.create(model="Lexus 150", manufacturer=manufacturer)
         Car.objects.create(model="Lexus 120", manufacturer=manufacturer)
-        self.client.force_login(self.user)
         response = self.client.get(Car_Format_URL, {"model": "Lexus 15"})
         self.assertContains(response, "Lexus 150")
         self.assertNotContains(response, "Lexus 120")
